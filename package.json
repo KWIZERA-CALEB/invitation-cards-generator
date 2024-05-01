@@ -1,16 +1,22 @@
 {
   "name": "desktop-app",
-  "productName": "Drill Beta",
+  "productName": "Text Mate",
   "version": "1.0.0",
   "description": "This is my first app in Electron js",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-win": "electron-packager . myApp --platform=win32 --arch=x64 --out=release-builds --overwrite",
+    "package-mac": "electron-packager . myApp --platform=darwin --arch=x64 --out=release-builds --overwrite",
+    "package-linux": "electron-packager . myApp --platform=linux --arch=x64 --out=release-builds --overwrite"
   },
   "author": "Caleb Kwizera",
   "license": "MIT",
   "dependencies": {
     "electron": "^30.0.1",
     "toastify": "^2.0.1"
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.2"
   }
 }

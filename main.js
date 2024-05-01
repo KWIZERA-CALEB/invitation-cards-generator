@@ -5,9 +5,10 @@ function createMainWindow() {
 
 
     const mainWindow = new BrowserWindow({
-        title: 'Drill Beta',
+        title: 'Text Mate',
         width: 500,
-        height: 600
+        height: 600,
+        icon: './renderer/assets/logo.ico'
     })
 
     mainWindow.loadFile(path.join(__dirname, './renderer/index.html'))
