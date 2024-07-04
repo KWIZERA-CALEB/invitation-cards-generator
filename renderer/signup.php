@@ -15,6 +15,29 @@
 </head>
 
 <body>
+    <?php
+         if (isset($_GET['error'])) {
+            // Decode the message
+            $msg = urldecode($_GET['error']);
+            echo '<span class="genric-btn danger error-cont" style="margin-left: 10px; margin-top: 10px;">' . htmlspecialchars($msg) . '</span>';
+
+            unset($_GET['error']);
+    
+        }
+
+       //Success
+       if (isset($_GET['success'])) {
+        // Decode the message
+        $msg = urldecode($_GET['success']);
+
+        echo '<span class="genric-btn success error-cont success-toast" style="position: absolute; top: 10px; left: 10px; z-index: 20; background-color: rgb(76, 211, 227); margin-left: 10px; margin-top: 10px;">' . htmlspecialchars($msg) . '</span>';
+
+        unset($_GET['error']);
+
+    }
+
+        
+    ?>
     
     <div class="first-section">
         <div class="title-head">
@@ -32,21 +55,21 @@
     </div>
 
     <div class="second-section">
-        <form action="">
+        <form action="../backend/register.php" method="post">
             <div><h6 style="pointer-events: none; margin-bottom: 3px; margin-top: 6px;">Username</h6></div>
             <div class="task-title-input">
-                <input type="text" placeholder="Username">
+                <input type="text" placeholder="Username" name="username">
             </div>
             <div><h6 style="pointer-events: none; margin-bottom: 3px; margin-top: 6px;">Email</h6></div>
             <div class="task-title-input">
-                <input type="text" placeholder="Email">
+                <input type="text" placeholder="Email" name="email">
             </div>
             <div><h6 style="pointer-events: none; margin-bottom: 3px; margin-top: 6px;">Password</h6></div>
             <div class="task-title-input">
-                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Password" name="password">
             </div>
             <div>
-                <button class="add-btn">SignUp</button>
+                <button type="submit" class="add-btn" name="signubtn">SignUp</button>
                 <div style="display: flex; align-items: center; gap: 3px;">
                     <h6 style="pointer-events: none; margin-bottom: 3px; margin-top: 6px;">Not a new member?</h6>
                     <a href="login.html"  style="color: #9FEF00; cursor: pointer; font-size: 12px;">Login</a>

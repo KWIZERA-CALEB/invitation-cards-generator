@@ -6,8 +6,8 @@ function createMainWindow() {
 
     const mainWindow = new BrowserWindow({
         title: 'Text Mate',
-        width: 500,
-        height: 600,
+        minHeight: 500,
+        minWidth: 600,
         icon: './renderer/assets/logo.ico'
     })
 
