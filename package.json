@@ -1,22 +1,45 @@
 {
-  "name": "desktop-app",
-  "productName": "Text Mate",
-  "version": "1.0.0",
-  "description": "This is my first app in Electron js",
-  "main": "main.js",
+  "name": "learn-canvases",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "electron .",
-    "package-win": "electron-packager . myApp --platform=win32 --arch=x64 --out=release-builds --overwrite",
-    "package-mac": "electron-packager . myApp --platform=darwin --arch=x64 --out=release-builds --overwrite",
-    "package-linux": "electron-packager . myApp --platform=linux --arch=x64 --out=release-builds --overwrite"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "author": "Caleb Kwizera",
-  "license": "MIT",
   "dependencies": {
-    "electron": "^30.0.1",
-    "toastify": "^2.0.1"
+    "@heroui/react": "^2.7.4",
+    "fabric": "4",
+    "framer-motion": "^12.4.7",
+    "idb": "^8.0.2",
+    "jspdf": "^3.0.0",
+    "pdfjs-dist": "^4.10.38",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "electron-packager": "^17.1.2"
+    "@eslint/js": "^9.21.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "postcss": "^8.5.3",
+    "react-router-dom": "^7.2.0",
+    "tailwindcss": "3",
+    "vite": "^6.2.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@heroui/shared-utils",
+      "canvas",
+      "core-js",
+      "esbuild"
+    ]
   }
 }
