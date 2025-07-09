@@ -1,6 +1,11 @@
+import CardCanvas from "./test"
+
 const Landing = () => {
     return (
-        <div>Landing Page</div>
+        <div>
+            Landing Page
+            <CardCanvas />
+        </div>
     )
 }
 
