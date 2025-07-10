@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { fabric } from 'fabric';
-import designJson from './cardDesign.json';
+import designJson from './card.json';
 import { Button } from '@heroui/react';
 
 const CardCanvas = () => {
