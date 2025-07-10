@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@heroui/react'
 import { fabric } from 'fabric';
-// import designJson from './cardDesign.json'
+import { jsPDF } from 'jspdf'; 
+import designJson from './cardDesign.json'
 
 const EditCanvas = () => {
     const canvasRef = useRef(null);
@@ -11,12 +12,7 @@ const EditCanvas = () => {
     const imageInputRef = useRef(null);
     const [selectedObject, setSelectedObject] = useState(null);
 
-    const designJson = localStorage.getItem('card-design')
-
-
-    
-    
-
+    // const designJson = localStorage.getItem('card-design')
 
     const handleExport = () => {
         const json = fabricRef.current.toJSON();
@@ -74,6 +70,38 @@ const EditCanvas = () => {
         });
 
         fabricRef.current = canvas;
+
+        const textBox = new fabric.Textbox("You're Invited!", {
+            left: 100,
+            top: 50,
+            fontSize: 30,
+            fill: "black",
+            fontFamily: "Arial",
+            editable: true,
+            selectable: true,
+        });
+        canvas.add(textBox);
+
+
+        const exportAsPNG = () => {
+            const dataURL = canvas.toDataURL({ format: 'png' });
+            const link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'invitation-card.png';
+            link.click();
+        };
+
+        const exportAsPDF = () => {
+            const dataURL = canvas.toDataURL({ format: 'png' });
+            const doc = new jsPDF();
+            const img = new Image();
+            img.src = dataURL;
+        
+            img.onload = () => {
+              doc.addImage(img, 'PNG', 10, 10, 180, 150);
+              doc.save('invitation-card.pdf');
+            };
+        };
 
         const saveState = () => {
             const json = fabricRef.current.toJSON();
@@ -163,6 +191,80 @@ const EditCanvas = () => {
         if (selectedObject && selectedObject.set) {
         selectedObject.set('fill', e.target.value);
         fabricRef.current.renderAll();
+        }
+    };
+
+
+     // Duplicate the selected element
+    const duplicateElement = () => {
+        const selectedObject = canvas.getActiveObject();
+        if (selectedObject) {
+        selectedObject.clone((clonedObject) => {
+            clonedObject.set({
+            left: selectedObject.left + 20,
+            top: selectedObject.top + 20,
+            });
+            canvas.add(clonedObject);
+            canvas.renderAll();
+        });
+        }
+    };
+
+    // Change the font family for the selected text
+    const handleFontChange = (e) => {
+        const selectedObject = canvas.getActiveObject();
+        if (selectedObject && selectedObject.type === 'textbox') {
+        selectedObject.set({ fontFamily: e.target.value });
+        canvas.renderAll();  // Re-render canvas to apply changes
+        }
+    };
+
+
+    // Bold the selected text
+    const toggleBold = () => {
+        const selectedObject = canvas.getActiveObject();
+        if (selectedObject && selectedObject.type === 'textbox') {
+        const isBold = selectedObject.fontWeight === 'bold';
+        selectedObject.set({ fontWeight: isBold ? 'normal' : 'bold' });
+        canvas.renderAll(); // Re-render canvas to apply changes
+        }
+    };
+
+    // Change font size
+    const changeFontSize = (e) => {
+        const selectedObject = canvas.getActiveObject();
+        if (selectedObject && selectedObject.type === 'textbox') {
+        selectedObject.set({ fontSize: e.target.value });
+        setFontSize(e.target.value); // Update font size state
+        canvas.renderAll(); // Re-render canvas to apply changes
+        }
+    };
+
+    // Set text alignment
+    const changeTextAlign = (e) => {
+        const selectedObject = canvas.getActiveObject();
+        if (selectedObject && selectedObject.type === 'textbox') {
+        selectedObject.set({ textAlign: e.target.value });
+        canvas.renderAll(); // Re-render canvas to apply changes
+        }
+    };
+
+    // Adjust letter spacing
+    const changeLetterSpacing = (e) => {
+        const selectedObject = canvas.getActiveObject();
+        if (selectedObject && selectedObject.type === 'textbox') {
+        selectedObject.set({ charSpacing: e.target.value });
+        canvas.renderAll(); // Re-render canvas to apply changes
+        }
+    };
+
+    // Toggle uppercase
+    const toggleUppercase = () => {
+        const selectedObject = canvas.getActiveObject();
+        if (selectedObject && selectedObject.type === 'textbox') {
+        const currentText = selectedObject.text;
+        selectedObject.set({ text: currentText.toUpperCase() });
+        canvas.renderAll(); // Re-render canvas to apply changes
         }
     };
 
